@@ -1,122 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React from 'react';
+import Navbar from './components/Navbar'
+import {useWeather} from './hooks/useWeather';
+import {WeatherSearch} from './components/WeatherSearch';
+import {WeatherForecast} from './components/WeatherForecast';
+import {CurrentWeather} from './components/CurrentWeather';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { weatherData, loading, error, fetchWeather } = useWeather();
+  
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+     <Navbar />
+     <div className="container py-5" style={{ maxWidth: '900px' }}>
+      <header className="text-center mb-5">
+        <h1 className="fw-bolder display-4 mb-3" style={{letterSpacing: '-1px'}}>Weather Dashboard</h1>
+        <p className="lead text-muted-light">Get real-time weather and 5-day forecasts.</p>
+      </header>
 
-      <div className="ticks"></div>
+      <WeatherSearch onSearch={fetchWeather} />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      {/* Loading State */}
+      {loading && (
+        <div className="d-flex justify-content-center my-5">
+          <div className="spinner-border text-info" role="status" style={{width: '3rem', height: '3rem'}}>
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      {/* Error Alert Display */}
+      {error && (
+        <div className="alert alert-danger glass-card border-danger text-center shadow-sm" role="alert">
+          {error}
+        </div>
+      )}
+
+      {/* Weather Metrics Dashboard View */}
+      {weatherData && !loading && (
+        <div className="animate-fade-in mt-4">
+          <CurrentWeather current={weatherData.current} />
+          <WeatherForecast forecast={weatherData.forecast} />
+        </div>
+      )}
+    </div>
+     
     </>
   )
 }
 
-export default App
+export default App;

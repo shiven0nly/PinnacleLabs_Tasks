@@ -41,9 +41,7 @@ export const getWeatherData = async (req, res) => {
             description: weatherResponse.data.weather[0].description,
             icon: weatherResponse.data.weather[0].icon
         },
-        forecast: forecastResponse.data.list.filter((_, index)=> {
-            index % 8 === 0;
-        })
+        forecast: forecastResponse.data.list.filter((_, index) => index % 8 === 0)
         // The API return data every 3 hours. Filtering by index % 8 gives us 1 reading per day (24h / 3h = 8)
      };
      return res.status(200).json(payLoad)
