@@ -20,5 +20,4 @@ jobs:
           node-version: 'lts/*'
 
       - name: Check Prettier Formatting
-        working-directory: ./TASK_1(WEATHER_APP), ./TASK-2(NEWS_APP), ./TASK-3(E-COMMERCE_APP)
-        run: npx prettier --check .
+        run: npx prettier --check "TASK_1(WEATHER_APP)" "TASK-2(NEWS_APP)" "TASK-3(E-COMMERCE_APP)"
