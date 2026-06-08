@@ -20,4 +20,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Check Prettier Formatting
-        run: npx prettier --check "TASK_1(WEATHER_APP)" "TASK-2(NEWS_APP)" "TASK-3(E-COMMERCE_APP)"
+        # Running with "." automatically checks ALL folders in the repository
+        # (TASK_1, TASK_2, TASK_3) without crashing if any are missing yet.
+        # It respects the rules in .prettierignore as well!
+        run: npx prettier --check .

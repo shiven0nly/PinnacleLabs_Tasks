@@ -35,7 +35,9 @@ body {
   font-weight: 600;
   color: #111;
   border-radius: 12px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .btn-custom:hover {
@@ -60,7 +62,9 @@ body {
 }
 
 .transition-hover {
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 .transition-hover:hover {
   transform: translateY(-5px);
