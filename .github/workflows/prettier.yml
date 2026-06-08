@@ -24,4 +24,3 @@ jobs:
         # (TASK_1, TASK_2, TASK_3) without crashing if any are missing yet.
         # It respects the rules in .prettierignore as well!
         run: npx prettier --check .
-        run: npx prettier --write .
