@@ -9,7 +9,6 @@ import weatherRoutes from './routes/weatherRoutes.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
 // MiddleWare
 app.use(cors()); // Allows requests from React frontend
 app.use(express.json());
@@ -19,10 +18,10 @@ app.use('/api/weather', weatherRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'UP', timestamp: new Date() })
-})
+  res.status(200).json({ status: 'UP', timestamp: new Date() });
+});
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

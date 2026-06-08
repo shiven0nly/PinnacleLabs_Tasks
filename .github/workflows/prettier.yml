@@ -1,0 +1,24 @@
+name: Prettier Formatting Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Check Prettier Formatting
+        working-directory: ./TASK_1(WEATHER_APP), ./TASK-2(NEWS_APP), ./TASK-3(E-COMMERCE_APP)
+        run: npx prettier --check .
