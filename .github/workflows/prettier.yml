@@ -2,9 +2,9 @@ name: Prettier Formatting Check
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   formatting:
@@ -24,4 +24,4 @@ jobs:
         # (TASK_1, TASK_2, TASK_3) without crashing if any are missing yet.
         # It respects the rules in .prettierignore as well!
         run: npx prettier --check .
-        
+        run: npx prettier --write .

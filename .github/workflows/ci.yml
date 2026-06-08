@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" , "master" ]
+    branches: ['main', 'master']
   pull_request:
-    branches: [ "main" , "master" ]
+    branches: ['main', 'master']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,22 +19,22 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: '**/package-lock.json'
-        
-    - name: Install Frontend Dependencies
-      run: npm ci
-      working-directory: ./TASK_1(WEATHER_APP)/frontend
-      
-    - name: Build Frontend
-      run: npm run build --if-present
-      working-directory: ./TASK_1(WEATHER_APP)/frontend
-      
-    - name: Install Backend Dependencies
-      run: npm ci
-      working-directory: ./TASK_1(WEATHER_APP)/backend
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install Frontend Dependencies
+        run: npm ci
+        working-directory: ./TASK_1(WEATHER_APP)/frontend
+
+      - name: Build Frontend
+        run: npm run build --if-present
+        working-directory: ./TASK_1(WEATHER_APP)/frontend
+
+      - name: Install Backend Dependencies
+        run: npm ci
+        working-directory: ./TASK_1(WEATHER_APP)/backend
