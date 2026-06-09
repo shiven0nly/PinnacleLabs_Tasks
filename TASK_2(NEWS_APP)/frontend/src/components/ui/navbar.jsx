@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Simple logo component for the navbar
 const Logo = (props) => {
@@ -73,10 +74,9 @@ const HamburgerIcon = ({ className, ...props }) => (
 
 // Default navigation links
 const defaultNavigationLinks = [
-  { href: '#', label: 'Home', active: true },
-  { href: '#features', label: 'Features' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#about', label: 'About' },
+  { Link: '/', label: 'Home' },
+  { Link: '/about', label: 'About' },
+  { Link: '/news-articles', label: 'News Articles' },
 ];
 
 export const Navbar = React.forwardRef(
@@ -84,12 +84,12 @@ export const Navbar = React.forwardRef(
     {
       className,
       logo = <Logo />,
-      logoHref = '#',
+      logoHref = '/',
       navigationLinks = defaultNavigationLinks,
       signInText = 'Sign In',
-      signInHref = '#signin',
+      signInHref = '/sign-in',
       ctaText = 'Get Started',
-      ctaHref = '#get-started',
+      ctaHref = '/sign-up',
       onSignInClick,
       onCtaClick,
       ...props
@@ -98,6 +98,7 @@ export const Navbar = React.forwardRef(
   ) => {
     const [isMobile, setIsMobile] = useState(false);
     const containerRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
       const checkWidth = () => {
@@ -161,18 +162,17 @@ export const Navbar = React.forwardRef(
                     <NavigationMenuList className="flex-col items-start gap-1">
                       {navigationLinks.map((link, index) => (
                         <NavigationMenuItem className="w-full" key={index}>
-                          <button
-                            type="button"
+                          <Link
+                            to={link.Link}
                             className={cn(
                               'flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline',
                               link.active
                                 ? 'bg-accent text-accent-foreground'
                                 : 'text-foreground/80'
                             )}
-                            onClick={(e) => e.preventDefault()}
                           >
                             {link.label}
-                          </button>
+                          </Link>
                         </NavigationMenuItem>
                       ))}
                     </NavigationMenuList>
@@ -182,34 +182,32 @@ export const Navbar = React.forwardRef(
             )}
             {/* Main nav */}
             <div className="flex items-center gap-6">
-              <button
-                type="button"
-                className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
-                onClick={(e) => e.preventDefault()}
+              <Link
+                to={logoHref}
+                className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer no-underline"
               >
                 <div className="text-2xl">{logo}</div>
-                <span className="hidden font-bold text-xl sm:inline-block">
-                  shadcn.io
+                <span className="font-bold text-xl sm:inline-block">
+                  News App
                 </span>
-              </button>
+              </Link>
               {/* Navigation menu */}
               {!isMobile && (
                 <NavigationMenu className="flex">
                   <NavigationMenuList className="gap-1">
                     {navigationLinks.map((link, index) => (
                       <NavigationMenuItem key={index}>
-                        <button
-                          type="button"
+                        <Link
+                          to={link.Link}
                           className={cn(
                             'group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline',
                             link.active
                               ? 'bg-accent text-accent-foreground'
                               : 'text-foreground/80 hover:text-foreground'
                           )}
-                          onClick={(e) => e.preventDefault()}
                         >
                           {link.label}
-                        </button>
+                        </Link>
                       </NavigationMenuItem>
                     ))}
                   </NavigationMenuList>
@@ -217,6 +215,36 @@ export const Navbar = React.forwardRef(
               )}
             </div>
           </div>
+          {/*SearchBar*/}
+          <form
+            action="search"
+            className="inline-flex items-center gap-2 border bg-fd-secondary/50 p-0.5 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground w-full rounded-full ps-2.5 max-w-[240px]"
+          >
+            <input
+              type="text"
+              placeholder="Search"
+              className='inline-flex items-center gap-2  bg-fd-secondary/50 p-1.5 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground w-full rounded-full ps-2.5 max-w-[240px]" '
+            />
+            <Button type="submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-search size-4"
+                aria-hidden="true"
+              >
+                <path d="m21 21-4.34-4.34"></path>
+                <circle cx="11" cy="11" r="8"></circle>
+              </svg>
+            </Button>
+          </form>
+
           {/* Right side */}
           <div className="flex items-center gap-3">
             <Button
@@ -225,6 +253,8 @@ export const Navbar = React.forwardRef(
                 e.preventDefault();
                 if (onSignInClick) {
                   onSignInClick();
+                } else {
+                  navigate(signInHref);
                 }
               }}
               size="sm"
@@ -238,6 +268,8 @@ export const Navbar = React.forwardRef(
                 e.preventDefault();
                 if (onCtaClick) {
                   onCtaClick();
+                } else {
+                  navigate(ctaHref);
                 }
               }}
               size="sm"

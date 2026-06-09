@@ -8,20 +8,24 @@ import { SignUp } from './auth/forms/SignUp';
 import { NewsArticles } from './pages/NewsArticles';
 import { About } from './pages/About';
 import { Dashboard } from './pages/Dashboard';
+import { Navbar } from './components/ui/navbar';
 
 const App = () => {
-  return <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/news-articles" element={<NewsArticles />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
-  </>;
+  return (
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/news-articles" element={<NewsArticles />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 };
 
 export default App;
