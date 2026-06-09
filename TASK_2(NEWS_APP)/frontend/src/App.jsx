@@ -1,13 +1,8 @@
-import React from 'react'
-import './index.css'
-
+import React from 'react';
+import './index.css';
 
 const App = () => {
-  return (
-    <>
-      
-    </>
-  )
-}
+  return <></>;
+};
 
 export default App;
