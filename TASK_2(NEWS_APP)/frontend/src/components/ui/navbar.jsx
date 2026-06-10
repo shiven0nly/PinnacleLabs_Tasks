@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Simple logo component for the navbar
 const Logo = (props) => {
@@ -120,6 +121,7 @@ export const Navbar = React.forwardRef(
       };
     }, []);
 
+    const { currentUser } = useSelector((state) => state.user);
     // Combine refs
     const combinedRef = React.useCallback(
       (node) => {
@@ -246,37 +248,41 @@ export const Navbar = React.forwardRef(
           </form>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
-            <Button
-              className="text-sm font-medium hover:bg-accent hover:text-accent-foreground"
-              onClick={(e) => {
-                e.preventDefault();
-                if (onSignInClick) {
-                  onSignInClick();
-                } else {
-                  navigate(signInHref);
-                }
-              }}
-              size="sm"
-              variant="ghost"
-            >
-              {signInText}
-            </Button>
-            <Button
-              className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
-              onClick={(e) => {
-                e.preventDefault();
-                if (onCtaClick) {
-                  onCtaClick();
-                } else {
-                  navigate(ctaHref);
-                }
-              }}
-              size="sm"
-            >
-              {ctaText}
-            </Button>
-          </div>
+          {currentUser ? (
+            <div>Current User</div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <Button
+                className="text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSignInClick) {
+                    onSignInClick();
+                  } else {
+                    navigate(signInHref);
+                  }
+                }}
+                size="sm"
+                variant="ghost"
+              >
+                {signInText}
+              </Button>
+              <Button
+                className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onCtaClick) {
+                    onCtaClick();
+                  } else {
+                    navigate(ctaHref);
+                  }
+                }}
+                size="sm"
+              >
+                {ctaText}
+              </Button>
+            </div>
+          )}
         </div>
       </header>
     );

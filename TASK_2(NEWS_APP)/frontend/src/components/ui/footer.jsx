@@ -11,7 +11,7 @@ const Footer = () => {
               to="/"
               className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
             >
-              <img src="/favicon.svg" className="h-7" alt="Flowbite Logo" />
+              <img src="/favicon.svg" className="h-7" alt="Logo" />
               <span className="text-heading self-center text-2xl font-semibold whitespace-nowrap">
                 News App
               </span>
@@ -23,18 +23,21 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/privacypolicy" className="hover:underline me-4 md:me-6">
+                <Link
+                  to="/privacypolicy"
+                  className="hover:underline me-4 md:me-6"
+                >
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link to="/sign-in" className="hover:underline me-4 md:me-6">
-                  Sign In
+                <Link to="/" className="hover:underline me-4 md:me-6">
+                  Home
                 </Link>
               </li>
               <li>
-                <Link to="/sign-up" className="hover:underline">
-                  Sign Up
+                <Link to="/news-articles" className="hover:underline">
+                  News Articles
                 </Link>
               </li>
             </ul>
