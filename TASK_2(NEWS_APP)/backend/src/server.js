@@ -18,7 +18,6 @@ mongoose
     console.log(`Database is not connected ${err}`);
   });
 
-//MiddleWare
 // for allowing json in req body;
 app.use(express.json());
 // for allowing cross origin requests
@@ -35,3 +34,16 @@ app.listen(process.env.PORT, () => {
 
 //import auth routes
 app.use('/api/auth', authRoutes);
+
+// MiddleWare
+app.use((err, req, res, next)=> {
+  const statusCode = err.statusCode || 500;
+
+  const message = err.message || "Internal Server Error";
+
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  })
+})
