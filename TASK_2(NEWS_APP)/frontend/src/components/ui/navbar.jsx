@@ -15,6 +15,15 @@ import {
 import { cn } from '@/lib/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { User, LogOut } from 'lucide-react';
 
 // Simple logo component for the navbar
 const Logo = (props) => {
@@ -76,8 +85,8 @@ const HamburgerIcon = ({ className, ...props }) => (
 // Default navigation links
 const defaultNavigationLinks = [
   { Link: '/', label: 'Home' },
-  { Link: '/about', label: 'About' },
   { Link: '/news-articles', label: 'News Articles' },
+  { Link: '/about', label: 'About' },
 ];
 
 export const Navbar = React.forwardRef(
@@ -249,7 +258,35 @@ export const Navbar = React.forwardRef(
 
           {/* Right side */}
           {currentUser ? (
-            <div>Current User</div>
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">Open</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuItem>
+                      <Link
+                        to="/dashboard"
+                        className="flex justify-center items-center gap-2"
+                      >
+                        {' '}
+                        <User /> Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to="/logout"
+                        className="flex justify-center items-center gap-2"
+                      >
+                        <LogOut /> LogOut
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           ) : (
             <div className="flex items-center gap-3">
               <Button
