@@ -39,6 +39,30 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+          <div>
+            <ul className="flex gap-5 justify-center mt-5">
+              <li>
+                <Link to="/" className="text-muted hover:underline">
+                  Instagram
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="text-muted hover:underline">
+                  Facebook
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="text-muted hover:underline">
+                  Twitter
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="text-muted hover:underline">
+                  LinkedIn
+                </Link>
+              </li>
+            </ul>
+          </div>
           <hr class="my-6 border-default sm:mx-auto lg:my-8" />
           <span class="block text-sm text-body sm:text-center">
             © 2026{' '}

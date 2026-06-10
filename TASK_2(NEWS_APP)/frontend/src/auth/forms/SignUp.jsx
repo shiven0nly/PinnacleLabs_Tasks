@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../../redux/user/userSlice';
 
 export const SignUp = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user);
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(signInStart());
     setError(null);
 
     const formData = new FormData(e.target);
@@ -30,13 +37,13 @@ export const SignUp = () => {
         throw new Error(result.message || 'Failed to sign up');
       }
 
+      dispatch(signInSuccess(result));
       toast.success('Account created successfully!');
       navigate('/');
     } catch (err) {
+      dispatch(signInFailure(err.message));
       setError(err.message);
       toast.error(err.message);
-    } finally {
-      setLoading(false);
     }
   };
   return (
