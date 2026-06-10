@@ -10,6 +10,8 @@ import { NewsArticles } from './pages/NewsArticles';
 import { About } from './pages/About';
 import { Dashboard } from './pages/Dashboard';
 import { Navbar } from './components/ui/navbar';
+import Footer from './components/ui/footer';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 const App = () => {
   return (
@@ -24,7 +26,9 @@ const App = () => {
           <Route path="/news-articles" element={<NewsArticles />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
