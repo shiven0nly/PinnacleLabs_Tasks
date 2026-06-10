@@ -21,7 +21,7 @@ export const signup = async (req, res, next) => {
     if (user) {
       return res.status(400).json({ message: 'User already exists' });
     }
-    const hashedPassowrd = bcryptjs.hash(password, 10);
+    const hashedPassowrd = await bcryptjs.hash(password, 10);
 
     const newUser = await User.create({
       username,
@@ -44,7 +44,7 @@ export const signin = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    const isPasswordValid = await user.comparePassword(password);
+    const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid password' });
     }

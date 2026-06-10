@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
+import { Toaster } from 'sonner';
 import { Home } from './pages/Home';
 import { SignIn } from './auth/forms/SignIn';
 import { SignUp } from './auth/forms/SignUp';
@@ -14,6 +15,7 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
+        <Toaster position="top-right" richColors />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
