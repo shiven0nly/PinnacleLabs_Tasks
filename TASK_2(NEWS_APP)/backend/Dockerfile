@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 # Copy package.json
 COPY package*.json ./
-RUN npm install
+RUN npm install --include=dev
 
 # copy the rest of code
 COPY . .

@@ -1,0 +1,62 @@
+services:
+  # 1. MongoDB Database
+  mongo:
+    image: mongo:latest
+    container_name: mongodb_service
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # 2. Database GUI (Mongo-Express)
+  mongo-gui:
+    image: mongo-express
+    container_name: mongo_gui_service
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://admin:password@mongo:27017/
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=password
+      - ME_CONFIG_TOKEN_KEY=my_super_secret_jwt_token_12345
+
+    depends_on:
+      - mongo
+
+  # 3. Backend API
+  backend-api:
+    build: ./backend
+    container_name: backend_service
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=development
+      # We override the local MONGO_URI to use the Docker network credentials
+      - MONGO_URI=mongodb://admin:password@mongo:27017/NewsApp?authSource=admin
+    depends_on:
+      - mongo
+
+  # 4. Main Frontend
+  client-frontend:
+    build: ./frontend
+    container_name: frontend_service
+    ports:
+      - "5173:5173"
+    environment:
+      - WDS_SOCKET_PORT=0
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true # Keeps the React/Vite process alive
+    tty: true
+    depends_on:
+      - backend-api
+
+volumes:
+  mongo-data:
