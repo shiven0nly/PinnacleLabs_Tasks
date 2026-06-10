@@ -1,0 +1,50 @@
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Prettier
+        run: npx prettier --write "**/*.{js,jsx,ts,tsx,json,md,css,scss,html}"
+
+      - name: Configure Git
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "[EMAIL_ADDRESS]"
+      
+      - name: Fetch all branches
+        run: git fetch --all
+
+      - name: Generate-timestamp
+        id: vars
+        run: echo "BRANCH_SUFFIX=$(date +%s)" >> $GITHUB_OUTPUT
+
+      - name: Run Prettier to format code
+        run: npx prettier --write "**/*.{js,jsx,ts,tsx,json,md,css,scss,html}"
+
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "chore: format code with Prettier"
+          git push  
