@@ -12,7 +12,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Navbar } from './components/ui/navbar';
 import Footer from './components/ui/footer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-
+import PrivateRoute from './components/PrivateRoute';
 const App = () => {
   return (
     <>
@@ -25,7 +25,9 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/news-articles" element={<NewsArticles />} />
           <Route path="/about" element={<About />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         </Routes>
         <Footer />
