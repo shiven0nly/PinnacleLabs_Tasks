@@ -131,47 +131,47 @@ export const Navbar = React.forwardRef(
       };
     }, []);
 
-      const [searchTerm, setSearchTerm] = useState("")
-  // console.log(searchTerm)
+    const [searchTerm, setSearchTerm] = useState('');
+    // console.log(searchTerm)
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search)
+    useEffect(() => {
+      const urlParams = new URLSearchParams(location.search);
 
-    const searchTermFromUrl = urlParams.get("searchTerm")
+      const searchTermFromUrl = urlParams.get('searchTerm');
 
-    if (searchTermFromUrl) {
-      setSearchTerm(searchTermFromUrl)
-    }
-  }, [location.search])
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    const urlParams = new URLSearchParams(location.search)
-    urlParams.set("searchTerm", searchTerm)
-
-    const searchQuery = urlParams.toString()
-
-    navigate(`/search?${searchQuery}`)
-  }
-
-  const handleSignout = async () => {
-    try {
-      const res = await fetch("/api/user/sign-out", {
-        method: "POST",
-      })
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        console.log(data.message)
-      } else {
-        dispatch(signOutSuccess())
+      if (searchTermFromUrl) {
+        setSearchTerm(searchTermFromUrl);
       }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+    }, [location.search]);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      const urlParams = new URLSearchParams(location.search);
+      urlParams.set('searchTerm', searchTerm);
+
+      const searchQuery = urlParams.toString();
+
+      navigate(`/search?${searchQuery}`);
+    };
+
+    const handleSignout = async () => {
+      try {
+        const res = await fetch('/api/user/sign-out', {
+          method: 'POST',
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          console.log(data.message);
+        } else {
+          dispatch(signOutSuccess());
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     const { currentUser } = useSelector((state) => state.user);
     // Combine refs
@@ -185,7 +185,6 @@ export const Navbar = React.forwardRef(
         }
       },
       [ref]
-
     );
 
     return (
@@ -272,7 +271,8 @@ export const Navbar = React.forwardRef(
           </div>
           {/*SearchBar*/}
           <form
-            action="search" onSubmit={handleSubmit}
+            action="search"
+            onSubmit={handleSubmit}
             className="inline-flex items-center gap-2 border bg-fd-secondary/50 p-0.5 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground w-full rounded-full ps-2.5 max-w-[240px]"
           >
             <input
@@ -308,10 +308,10 @@ export const Navbar = React.forwardRef(
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <div>
-                    <img 
-                        src={currentUser.profilePicture}
-                        alt="user photo"
-                        className='w-10 h-10 rounded-full'
+                    <img
+                      src={currentUser.profilePicture}
+                      alt="user photo"
+                      className="w-10 h-10 rounded-full"
                     />
                   </div>
                 </DropdownMenuTrigger>
@@ -336,7 +336,7 @@ export const Navbar = React.forwardRef(
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleSignout}>
-                        <LogOut /> Sign Out
+                      <LogOut /> Sign Out
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
