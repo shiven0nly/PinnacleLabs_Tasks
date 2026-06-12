@@ -21,6 +21,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { User, LogOut } from 'lucide-react';
@@ -261,14 +262,22 @@ export const Navbar = React.forwardRef(
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">Open</Button>
+                  <Button variant="outline">Profile</Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuGroup>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="block">
+                      <div className="flex flex-col gap-1">
+                        <span>@{currentUser.username}</span>
+                        <span>@{currentUser.email}</span>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem>
                       <Link
-                        to="/dashboard"
+                        to="/dashboard?tab=profile"
                         className="flex justify-center items-center gap-2"
                       >
                         {' '}
@@ -280,7 +289,7 @@ export const Navbar = React.forwardRef(
                         to="/logout"
                         className="flex justify-center items-center gap-2"
                       >
-                        <LogOut /> LogOut
+                        <LogOut /> Log Out
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>

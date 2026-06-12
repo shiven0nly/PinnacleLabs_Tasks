@@ -8,7 +8,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo-data:/data/db
 
@@ -18,7 +18,7 @@ services:
     container_name: mongo_gui_service
     restart: always
     ports:
-      - "8081:8081"
+      - '8081:8081'
     environment:
       - ME_CONFIG_MONGODB_URL=mongodb://admin:password@mongo:27017/
       - ME_CONFIG_BASICAUTH_USERNAME=admin
@@ -34,7 +34,7 @@ services:
     container_name: backend_service
     restart: always
     ports:
-      - "5000:5000"
+      - '5000:5000'
     env_file:
       - ./backend/.env
     environment:
@@ -49,7 +49,7 @@ services:
     build: ./frontend
     container_name: frontend_service
     ports:
-      - "5173:5173"
+      - '5173:5173'
     environment:
       - WDS_SOCKET_PORT=0
       - CHOKIDAR_USEPOLLING=true
