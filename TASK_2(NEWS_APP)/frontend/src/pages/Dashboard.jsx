@@ -1,7 +1,7 @@
 import Sidebar from '@/components/ui/Sidebar';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import DashboardProfile from '@/components/DashboardProfile';
+import { DashboardProfile } from '@/components/DashboardProfile';
 import MobileNavbar from '@/components/ui/MobileNavbar';
 
 export const Dashboard = () => {
@@ -29,7 +29,9 @@ export const Dashboard = () => {
           <MobileNavbar />
         </div>
         {/*Profile*/}
-        <div>{tab === 'profile' && <DashboardProfile />}</div>
+        <div className="w-full h-screen">
+          {tab === 'profile' && <DashboardProfile />}
+        </div>
       </div>
     </>
   );
