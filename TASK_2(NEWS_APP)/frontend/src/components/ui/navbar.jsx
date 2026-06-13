@@ -282,23 +282,25 @@ export const Navbar = React.forwardRef(
               onChange={(e) => setSearchTerm(e.target.value)}
               className='inline-flex items-center gap-2  bg-fd-secondary/50 p-1.5 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground w-full rounded-full ps-2.5 max-w-[240px]" '
             />
-            <Button type="submit">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-search size-4"
-                aria-hidden="true"
-              >
-                <path d="m21 21-4.34-4.34"></path>
-                <circle cx="11" cy="11" r="8"></circle>
-              </svg>
+            <Button type="submit" className="rounded-full">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-search size-4"
+                  aria-hidden="true"
+                >
+                  <path d="m21 21-4.34-4.34"></path>
+                  <circle cx="11" cy="11" r="8"></circle>
+                </svg>
+              </span>
             </Button>
           </form>
 
