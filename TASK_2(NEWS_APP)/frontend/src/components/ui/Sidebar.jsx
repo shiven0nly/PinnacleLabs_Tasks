@@ -35,33 +35,33 @@ const Sidebar = (props) => {
         {/* Header */}
         <div className="flex justify-center items-center gap-2 p-6 border-b">
           <span>
-              <svg
-                aria-label="Logo"
-                role="img"
-                fill="primary"
-                height="2em"
-                viewBox="0 0 324 323"
-                width="2em"
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-primary fill-primary"
-                {...props}
-              >
-                <rect
-                  fill="currentColor"
-                  height="323"
-                  rx="161.5"
-                  width="323"
-                  x="0.5"
-                />
-                <circle
-                  cx="162"
-                  cy="161.5"
-                  fill="white"
-                  r="60"
-                  className="fill-accent"
-                />
-              </svg>
-            </span>
+            <svg
+              aria-label="Logo"
+              role="img"
+              fill="primary"
+              height="2em"
+              viewBox="0 0 324 323"
+              width="2em"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-primary fill-primary"
+              {...props}
+            >
+              <rect
+                fill="currentColor"
+                height="323"
+                rx="161.5"
+                width="323"
+                x="0.5"
+              />
+              <circle
+                cx="162"
+                cy="161.5"
+                fill="white"
+                r="60"
+                className="fill-accent"
+              />
+            </svg>
+          </span>
           <span className="prose-black prose-xl font-bold">Dashboard</span>
         </div>
 

@@ -177,7 +177,7 @@ export const Navbar = React.forwardRef(
 
     const { currentUser } = useSelector((state) => state.user);
     console.log('Navbar - currentUser:', currentUser);
-    
+
     // Combine refs
     const combinedRef = React.useCallback(
       (node) => {
@@ -341,12 +341,15 @@ export const Navbar = React.forwardRef(
                         to="/dashboard?tab=profile"
                         className="flex items-center gap-2 cursor-pointer"
                       >
-                        <User className="w-4 h-4" /> 
+                        <User className="w-4 h-4" />
                         <span>Profile</span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleSignout} className="cursor-pointer">
-                      <LogOut className="w-4 h-4 mr-2" /> 
+                    <DropdownMenuItem
+                      onClick={handleSignout}
+                      className="cursor-pointer"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
                       <span>Sign Out</span>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
