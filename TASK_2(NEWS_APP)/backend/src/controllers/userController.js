@@ -1,8 +1,8 @@
-import { Profiler } from 'react';
-import { errorHandler } from '../utils/error';
+import User from '../models/userModel.js';
+import { errorHandler } from '../utils/error.js';
 import bcryptjs from 'bcryptjs';
 
-export const updateUser = async((req, res, next) => {
+export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(401, 'You can only update your own account!'));
   }
@@ -22,32 +22,32 @@ export const updateUser = async((req, res, next) => {
     if (req.body.username.includes(' ')) {
       return next(errorHandler(400, 'Username cannot contain spaces!'));
     }
-    if (req.body.username !== req.body.username.tolowerCase()) {
-      req.body.username = req.body.username.tolowerCase();
+    if (req.body.username !== req.body.username.toLowerCase()) {
+      req.body.username = req.body.username.toLowerCase();
     }
-    if (!req.body.username.match(/^[a-zA-Z0-9]+$@#_/)) {
+    if (!/^[a-zA-Z0-9]+$/.test(req.body.username)) {
       return next(
         errorHandler(400, 'Username can only contains letters and numbers')
       );
     }
   }
   try {
-    const updatedUser = User.findByIdAnadUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       req.params.userId,
       {
         $set: {
           username: req.body.username,
           email: req.body.email,
-          ProfilePicture: req.body.ProfilePicture,
+          profilePicture: req.body.profilePicture,
           password: req.body.password,
         },
       },
       { new: true }
     );
-    const { password: pass, ...rest } = updatedUser._doc;
-
+    if (!updatedUser) return next(errorHandler(404, 'User not found'));
+    const { password: pass, ...rest } = updatedUser._doc || updatedUser;
     res.status(200).json(rest);
   } catch (error) {
     next(error);
   }
-});
+};
