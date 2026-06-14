@@ -8,6 +8,7 @@ export const DashboardProfile = () => {
   const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const ProfilePicRef = useRef(null);
+  const [formData , setFormData] = useState({});
 
   console.log('DashboardProfile - currentUser:', currentUser);
 
@@ -18,6 +19,10 @@ export const DashboardProfile = () => {
       setImageUrl(URL.createObjectURL(file));
     }
   };
+
+  const handleChange =(e) => {
+      setFormData({...formData, [e.target.id]:e.target.value})
+  }
 
   return (
     <div className="max-w-lg mx-auto p-6 w-full">
@@ -52,8 +57,9 @@ export const DashboardProfile = () => {
             type="text"
             id="username"
             placeholder="Username"
-            defaultValue={currentUser?.username}
-            className="h-12 border rounded-lg"
+            defaultValue={currentUser.username}
+            className="h-12 border rounded-md border border-primary/20 hover:rounded-xl"
+            onChange={handleChange}
           />
         </div>
 
@@ -66,8 +72,9 @@ export const DashboardProfile = () => {
             type="email"
             id="email"
             placeholder="Email"
-            defaultValue={currentUser?.email}
-            className="h-12 border rounded-lg"
+            defaultValue={currentUser.email}
+            className="h-12 border rounded-lg border-primary/20 rounded-md hover:rounded-xl"
+            onChange={handleChange}
           />
         </div>
 
@@ -79,8 +86,8 @@ export const DashboardProfile = () => {
           <Input
             type="password"
             id="password"
-            placeholder="New Password"
-            className="h-12 border rounded-lg"
+            placeholder="Password Not Visible Here"
+            className="h-12 border rounded-lg pointer-events-none caret-transparent select-default cursor-default border-primary/20"
           />
         </div>
 
