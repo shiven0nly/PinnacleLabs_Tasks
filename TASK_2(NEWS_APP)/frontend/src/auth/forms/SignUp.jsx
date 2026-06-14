@@ -8,7 +8,7 @@ import {
   signInFailure,
 } from '../../redux/user/userSlice';
 
-export const SignUp = () => {
+export const SignUp = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
@@ -51,11 +51,36 @@ export const SignUp = () => {
       <div className="grid grid-cols-2 gap-4">
         {/* left side */}
         <div className="flex flex-col justify-center items-center h-screen border-r border-border bg-amber-200">
-          <p className="flex justify-center items-center text-4xl gap-3">
+          <p className="flex justify-center items-center gap-3">
             <span>
-              <img src="/favicon.svg" alt="logo" />
+              <svg
+                aria-label="Logo"
+                role="img"
+                fill="primary"
+                height="3em"
+                viewBox="0 0 324 323"
+                width="3em"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-primary fill-primary"
+                {...props}
+              >
+                <rect
+                  fill="currentColor"
+                  height="323"
+                  rx="161.5"
+                  width="323"
+                  x="0.5"
+                />
+                <circle
+                  cx="162"
+                  cy="161.5"
+                  fill="white"
+                  r="60"
+                  className="fill-accent"
+                />
+              </svg>
             </span>
-            <span className="text-primary">News App</span>
+            <span className="text-primary text-4xl text-bold">News App</span>
           </p>
           <div className="flex flex-col justify-center items-start mt-10 ml-5">
             <p className="text-2xl font-semibold flex justify-start ml-10">
@@ -68,13 +93,34 @@ export const SignUp = () => {
         </div>
         {/* right side */}
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-              alt="News App"
-              src="/favicon.svg"
-              className="mx-auto h-20 w-auto text-primary"
-            />
-            <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-foreground">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm flex justify-center item-center gap-2">
+            <svg
+              aria-label="Logo"
+              role="img"
+              fill="primary"
+              height="3em"
+              viewBox="0 0 324 323"
+              width="3em"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-primary fill-primary"
+              {...props}
+            >
+              <rect
+                fill="currentColor"
+                height="323"
+                rx="161.5"
+                width="323"
+                x="0.5"
+              />
+              <circle
+                cx="162"
+                cy="161.5"
+                fill="white"
+                r="60"
+                className="fill-accent"
+              />
+            </svg>
+            <h2 className="text-center text-2xl font-bold tracking-tight text-foreground mt-3">
               Sign up to your account
             </h2>
           </div>
@@ -98,9 +144,10 @@ export const SignUp = () => {
                     id="username"
                     name="username"
                     type="text"
+                    placeholder="username"
                     required
                     autoComplete="username"
-                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-base text-foreground outline-1 -outline-offset-1 outline-border placeholder:text-muted-foreground focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
+                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
                   />
                 </div>
               </div>
@@ -117,9 +164,10 @@ export const SignUp = () => {
                     id="email"
                     name="email"
                     type="email"
+                    placeholder="joedohn@gmail.com"
                     required
                     autoComplete="email"
-                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-base text-foreground outline-1 -outline-offset-1 outline-border placeholder:text-muted-foreground focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
+                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
                   />
                 </div>
               </div>
@@ -138,9 +186,10 @@ export const SignUp = () => {
                     id="password"
                     name="password"
                     type="password"
+                    placeholder="......"
                     required
                     autoComplete="current-password"
-                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-base text-foreground outline-1 -outline-offset-1 outline-border placeholder:text-muted-foreground focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
+                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
                   />
                 </div>
               </div>

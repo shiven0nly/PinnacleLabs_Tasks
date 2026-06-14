@@ -1,18 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <div>
       <footer className="bg-neutral-primary-soft rounded-base shadow-xs border border-default m-4">
-        <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div className="w-full max-w-7xl mx-auto p-4 md:py-8">
           <div className="sm:flex sm:items-center sm:justify-between">
             <Link
               to="/"
               className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
             >
-              <img src="/favicon.svg" className="h-7" alt="Logo" />
-              <span className="text-heading self-center text-2xl font-semibold whitespace-nowrap">
+              <svg
+                aria-label="Logo"
+                role="img"
+                fill="primary"
+                height="2em"
+                viewBox="0 0 324 323"
+                width="2em"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-primary fill-primary"
+                {...props}
+              >
+                <rect
+                  fill="currentColor"
+                  height="323"
+                  rx="161.5"
+                  width="323"
+                  x="0.5"
+                />
+                <circle
+                  cx="162"
+                  cy="161.5"
+                  fill="white"
+                  r="60"
+                  className="fill-accent"
+                />
+              </svg>
+              <span className="prose prose-2xl text-pretty text-primary self-center font-semibold whitespace-nowrap">
                 News App
               </span>
             </Link>
@@ -45,22 +70,38 @@ const Footer = () => {
           <div>
             <ul className="flex gap-5 justify-center mt-5">
               <li>
-                <Link to="/" className="text-muted hover:underline">
+                <Link
+                  to="/"
+                  className="text-primary/80
+                 hover:underline"
+                >
                   Instagram
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-muted hover:underline">
+                <Link
+                  to="/"
+                  className="text-primary/80
+                 hover:underline"
+                >
                   Facebook
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-muted hover:underline">
+                <Link
+                  to="/"
+                  className="text-primary/80
+                 hover:underline"
+                >
                   Twitter
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-muted hover:underline">
+                <Link
+                  to="/"
+                  className="text-primary/80
+                 hover:underline"
+                >
                   LinkedIn
                 </Link>
               </li>
