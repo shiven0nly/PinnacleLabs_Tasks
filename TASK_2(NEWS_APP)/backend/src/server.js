@@ -3,6 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoute.js';
+import userRoutes from './routes/userRoute.js';
+import cookieParser from 'cookie-parser';
+
 
 dotenv.config();
 
@@ -20,6 +23,7 @@ mongoose
 
 // for allowing json in req body;
 app.use(express.json());
+app.use(cookieParser());
 // for allowing cross origin requests
 app.use(cors());
 
@@ -34,6 +38,8 @@ app.listen(process.env.PORT, () => {
 
 //import auth routes
 app.use('/api/auth', authRoutes);
+//import user routes
+app.use('/api/user', userRoutes)
 
 // MiddleWare
 app.use((err, req, res, next) => {
