@@ -15,9 +15,9 @@ client.ping().then(
 );
 
 createRoot(document.getElementById('root')).render(
-  <PersistGate persistor={persistor}>
-    <Provider store={store}>
+  <Provider store={store}>
+    <PersistGate persistor={persistor} loading={null}>
       <App />
-    </Provider>
-  </PersistGate>
+    </PersistGate>
+  </Provider>
 );

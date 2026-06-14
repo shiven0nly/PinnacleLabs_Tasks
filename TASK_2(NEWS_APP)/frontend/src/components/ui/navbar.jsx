@@ -14,7 +14,8 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOutSuccess } from '@/redux/user/userSlice';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -131,6 +132,7 @@ export const Navbar = React.forwardRef(
       };
     }, []);
 
+    const dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState('');
     // console.log(searchTerm)
 
@@ -174,6 +176,8 @@ export const Navbar = React.forwardRef(
     };
 
     const { currentUser } = useSelector((state) => state.user);
+    console.log('Navbar - currentUser:', currentUser);
+    
     // Combine refs
     const combinedRef = React.useCallback(
       (node) => {
@@ -190,7 +194,7 @@ export const Navbar = React.forwardRef(
     return (
       <header
         className={cn(
-          'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6 [&_*]:no-underline',
+          'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6 [&_*]:no-underline flex justify-center item-center',
           className
         )}
         ref={combinedRef}
@@ -241,7 +245,7 @@ export const Navbar = React.forwardRef(
                 className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer no-underline"
               >
                 <div className="text-2xl">{logo}</div>
-                <span className="font-bold text-xl sm:inline-block">
+                <span className="font-bold text-xl sm:inline-block md:text-sm">
                   News App
                 </span>
               </Link>
@@ -309,36 +313,41 @@ export const Navbar = React.forwardRef(
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <div>
+                  <button className="rounded-full focus:outline-none focus:ring-2 focus:ring-primary flex justify-center item-center">
                     <img
                       src={currentUser.profilePicture}
                       alt="user photo"
-                      className="w-10 h-10 rounded-full"
+                      className="w-10 h-10 rounded-full cursor-pointer object-cover"
                     />
-                  </div>
+                  </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuGroup>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuLabel className="block">
-                      <div className="flex flex-col gap-1">
-                        <span>@{currentUser.username}</span>
-                        <span>@{currentUser.email}</span>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">
+                          {currentUser.username}
+                        </p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {currentUser.email}
+                        </p>
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem asChild>
                       <Link
                         to="/dashboard?tab=profile"
-                        className="flex justify-center items-center gap-2"
+                        className="flex items-center gap-2 cursor-pointer"
                       >
-                        {' '}
-                        <User /> Profile
+                        <User className="w-4 h-4" /> 
+                        <span>Profile</span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleSignout}>
-                      <LogOut /> Sign Out
+                    <DropdownMenuItem onClick={handleSignout} className="cursor-pointer">
+                      <LogOut className="w-4 h-4 mr-2" /> 
+                      <span>Sign Out</span>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
