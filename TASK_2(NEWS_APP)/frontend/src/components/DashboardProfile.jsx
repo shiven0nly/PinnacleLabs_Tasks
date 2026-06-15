@@ -53,8 +53,6 @@ export const DashboardProfile = () => {
       dispatch(updateStart());
       // wait for image upload
       const profilePicture = await uploadImage();
-<<<<<<< HEAD
-
       const updateProfile = {
         ...formData,
         profilePicture: profilePicture,
@@ -76,8 +74,6 @@ export const DashboardProfile = () => {
         dispatch(updateSuccess(data.message));
         toast({ title: 'User updated successfully!!' });
       }
-=======
->>>>>>> a5096636f42daca928aae3efcf16771813bb6732
     } catch (error) {
       dispatch(updateFailure(error.message));
       toast({ title: 'Update user failed!! Please try again!' });
