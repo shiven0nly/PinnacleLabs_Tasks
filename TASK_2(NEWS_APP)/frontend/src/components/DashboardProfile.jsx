@@ -8,7 +8,7 @@ import {
   updateSuccess,
 } from '@/redux/user/userSlice';
 import { getFilePreview, uploadFile } from '@/lib/appwrite/uploadImage';
-import useToast from 'react';
+import { useToast } from '@hooks/use-toast';
 
 export const DashboardProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -16,7 +16,7 @@ export const DashboardProfile = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const ProfilePicRef = useRef(null);
   const dispatch = useDispatch();
-  const toast = useToast();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({});
 
   console.log('DashboardProfile - currentUser:', currentUser);
@@ -67,16 +67,17 @@ export const DashboardProfile = () => {
 
       const data = await res.json();
 
+      
       if (!res.ok) {
-        dispatch(updateFailure(data.message));
         toast({ title: 'Update user failed!! Please try again!' });
+        dispatch(updateFailure(data.message));
       } else {
-        dispatch(updateSuccess(data.message));
         toast({ title: 'User updated successfully!!' });
+        dispatch(updateSuccess(data));
       }
     } catch (error) {
-      dispatch(updateFailure(error.message));
       toast({ title: 'Update user failed!! Please try again!' });
+      dispatch(updateFailure(error.message));
     }
   };
 
