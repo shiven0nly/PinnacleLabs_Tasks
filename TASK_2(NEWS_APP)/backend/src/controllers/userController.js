@@ -52,18 +52,16 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-export const deleteUser = async(req, res, next) => {
-
-  if(req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "You can only update your own account!"));
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You can only update your own account!'));
   }
 
   try {
-    await User.findByIdAndDelete(req.params.userId)
+    await User.findByIdAndDelete(req.params.userId);
 
-    res.status(200).json("User has been deleted successfully!!")
+    res.status(200).json('User has been deleted successfully!!');
   } catch (error) {
-    next(errorHandler(500, "Internal Server Error"))
+    next(errorHandler(500, 'Internal Server Error'));
   }
-
 };
