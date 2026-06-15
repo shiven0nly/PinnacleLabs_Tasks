@@ -85,7 +85,6 @@ export const DashboardProfile = () => {
 
       const data = await res.json();
 
-      
       if (!res.ok) {
         toast({ title: 'Update user failed!! Please try again!' });
         dispatch(updateFailure(data.message));
