@@ -1,16 +1,35 @@
-import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useRef, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { updateStart } from '@/redux/user/userSlice';
+import { getFilePreview, uploadFile } from '@/lib/appwrite/uploadImage';
+import useToast from 'react';
 
 export const DashboardProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const ProfilePicRef = useRef(null);
+  const dispatch = useDispatch();
+  const toast = useToast();
   const [formData , setFormData] = useState({});
 
   console.log('DashboardProfile - currentUser:', currentUser);
+
+  const uploadImage = async() => {
+      if(!imageFile) {
+        return currentUser.profilePicture
+      }
+      try {
+        const uploadedFile = await uploadFile(imageFile);
+        const profilePictureUrl = getFilePreview(uploadedFile.$id)
+        return profilePictureUrl
+      } catch (error) {
+        toast({title: "Update user failed!! Please try again!"});
+        console.log("Image upload failed: ", error);
+      }
+  }
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -24,13 +43,24 @@ export const DashboardProfile = () => {
       setFormData({...formData, [e.target.id]:e.target.value})
   }
 
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    try {
+        dispatch(updateStart())
+        // wait for image upload
+        const profilePicture = await uploadImage()
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="max-w-lg mx-auto p-6 w-full">
       <h1 className="text-center font-bold text-3xl mb-8">
         Update Your Profile
       </h1>
 
-      <form className="flex flex-col gap-6">
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         {/* Profile Picture */}
         <input
           type="file"
