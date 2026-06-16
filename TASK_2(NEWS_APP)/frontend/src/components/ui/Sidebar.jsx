@@ -82,14 +82,16 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li>
-              <Link  to="/create-post"
+              <Link
+                to="/create-post"
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                   tab === 'profile'
                     ? 'bg-primary text-primary-foreground'
                     : 'hover:bg-gray-200 dark:hover:bg-gray-800'
-                }`}>
-                  <CircleFadingPlus className='w-5 h-5' /> 
-                  <span className='font-medium'>Create Post</span>
+                }`}
+              >
+                <CircleFadingPlus className="w-5 h-5" />
+                <span className="font-medium">Create Post</span>
               </Link>
             </li>
           </ul>
