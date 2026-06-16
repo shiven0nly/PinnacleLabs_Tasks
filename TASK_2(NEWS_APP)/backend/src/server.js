@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoute.js';
 import userRoutes from './routes/userRoute.js';
+import postRoutes from './routes/postRoute.js'
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -39,6 +40,8 @@ app.listen(process.env.PORT, () => {
 app.use('/api/auth', authRoutes);
 //import user routes
 app.use('/api/user', userRoutes);
+//import post routes
+app.use('/api/post', postRoutes);
 
 // MiddleWare
 app.use((err, req, res, next) => {
