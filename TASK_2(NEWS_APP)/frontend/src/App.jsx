@@ -13,6 +13,7 @@ import { Navbar } from './components/ui/navbar';
 import Footer from './components/ui/footer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import PrivateRoute from './components/PrivateRoute';
+import CreatePost from './pages/CreatePost';
 const App = () => {
   return (
     <>
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path='/create-post' element={<CreatePost />} />
           </Route>
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         </Routes>
