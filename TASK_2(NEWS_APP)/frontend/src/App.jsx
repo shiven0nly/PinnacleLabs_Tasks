@@ -14,6 +14,7 @@ import Footer from './components/ui/footer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import PrivateRoute from './components/PrivateRoute';
 import CreatePost from './pages/CreatePost';
+import DashboardPosts from './components/DashboardPost';
 const App = () => {
   return (
     <>
@@ -29,6 +30,7 @@ const App = () => {
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/your-articles" element={<DashboardPosts />} />
           </Route>
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         </Routes>

@@ -67,7 +67,21 @@ const MobileNavbar = () => {
               }`}
             >
               <CircleFadingPlus size={20} />
-              <span className="text-xw"></span>
+              <span className="text-xw">Create Post</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/your-articles"
+              className={`flex flex-col items-center gap-1 transition-colors ${
+                tab === 'profile'
+                  ? 'text-primary'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-primary'
+              }`}
+            >
+              <CircleCheck size={20} />
+              <span className="text-xw">Your Articles</span>
             </Link>
           </li>
 
