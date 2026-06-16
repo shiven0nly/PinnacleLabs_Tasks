@@ -13,7 +13,7 @@ const Sidebar = (props) => {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/sign-out', {
+      const res = await fetch('/api/user/signout', {
         method: 'POST',
       });
 
@@ -92,7 +92,7 @@ const Sidebar = (props) => {
             onClick={handleSignout}
           >
             <LogOut className="w-5 h-5" />
-            <span>Log Out</span>
+            <Button variant='destructive'>Log Out</Button>
           </Button>
         </div>
       </aside>

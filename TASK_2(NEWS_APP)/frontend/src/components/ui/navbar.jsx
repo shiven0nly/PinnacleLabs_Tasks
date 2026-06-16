@@ -159,7 +159,7 @@ export const Navbar = React.forwardRef(
 
     const handleSignout = async () => {
       try {
-        const res = await fetch('/api/user/sign-out', {
+        const res = await fetch('/api/user/signout', {
           method: 'POST',
         });
 
@@ -349,7 +349,7 @@ export const Navbar = React.forwardRef(
                       onClick={handleSignout}
                       className="cursor-pointer"
                     >
-                      <LogOut className="w-4 h-4 mr-2" />
+                      <LogOut className="w-4 h-4 mr-2" onClik={handleSignout} />
                       <span>Sign Out</span>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>

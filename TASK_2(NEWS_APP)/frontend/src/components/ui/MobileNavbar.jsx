@@ -52,13 +52,13 @@ const MobileNavbar = () => {
           <span className="text-xs">Profile</span>
         </Link>
 
-        <button
+        <Button
           onClick={handleSignout}
-          className="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors"
+          variant='destructive'
         >
           <LogOut size={20} />
-          <span className="text-xs">Log Out</span>
-        </button>
+          <span className="text-xs">Sign Out</span>
+        </Button>
       </div>
     </nav>
   );

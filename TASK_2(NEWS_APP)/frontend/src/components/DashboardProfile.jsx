@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import {
@@ -9,10 +8,11 @@ import {
   updateFailure,
   updateStart,
   updateSuccess,
+  signOutSuccess,
+  signOutFailure,
+  signOutStart
 } from '@/redux/user/userSlice';
 import { getFilePreview, uploadFile } from '@/lib/appwrite/uploadImage';
-import { useToast } from '@hooks/use-toast';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +24,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
 import { Toaster } from 'react-hot-toast';
 
 
@@ -97,6 +96,28 @@ export const DashboardProfile = () => {
       dispatch(updateFailure(error.message));
     }
   };
+
+  const handleSignOut = async() => {
+    try {
+        dispatch(signOutStart())
+        const res = await fetch("/api/user/signout", {
+          method: "POST"
+        })
+
+        const data = await res.json()
+        if(!res.ok){
+          Toaster({title: "Internal Server Error"})
+          dispatch(signOutFailure(data.message))
+        }
+        else {
+          Toaster({title: "Signout Successfully!!"})
+          dispatch(signOutSuccess(data))
+        }
+    } catch (error) {
+      Toaster({title: "Internal Server Error"})
+      dispatch(signOutFailure(error.message))
+    }
+  }
 
   const handleDeleterUser = async() =>{
     try {
@@ -219,7 +240,7 @@ export const DashboardProfile = () => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-        <Button variant="destructive" className="cursor-pointer">
+        <Button onClick={handleSignOut} variant="destructive" className="cursor-pointer">
           Sign Out
         </Button>
       </div>
