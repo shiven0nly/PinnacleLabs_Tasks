@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { User, LogOut, CircleFadingPlus , CircleCheck } from 'lucide-react';
+import { User, LogOut, CircleFadingPlus, CircleCheck } from 'lucide-react';
 import { Button } from './button';
 import { useDispatch } from 'react-redux';
 import { signOutSuccess } from '@/redux/user/userSlice';
@@ -93,8 +93,8 @@ const Sidebar = (props) => {
                 <CircleFadingPlus className="w-5 h-5" />
                 <span className="font-medium">Create Post</span>
               </Link>
-              </li>
-              <li>
+            </li>
+            <li>
               <Link
                 to="/your-articles"
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
