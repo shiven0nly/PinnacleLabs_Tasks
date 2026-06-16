@@ -24,8 +24,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import { Toaster } from 'react-hot-toast';
-
 
 export const DashboardProfile = () => {
   const { currentUser, error } = useSelector((state) => state.user);
@@ -119,27 +119,26 @@ export const DashboardProfile = () => {
     }
   }
 
-  const handleDeleterUser = async() =>{
+  const handleDeleterUser = async () => {
     try {
-        dispatch(deleteUserStart())
-        const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-          method: "DELETE",
-        })
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
 
-        const data = await res.json()
+      const data = await res.json();
 
-        if(!res.ok){
-          dispatch(deleteUserFailure(data.message))
-        } 
-        else {
-          Toaster({title: "Deleted User Successfully!"})
-          dispatch(deleteUserSuccess())
-        }
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        Toaster({ title: 'Deleted User Successfully!' });
+        dispatch(deleteUserSuccess());
+      }
     } catch (error) {
-      toast({title: "Internal Server Error"})
-      dispatch(deleteUserFailure(error.message))
+      toast({ title: 'Internal Server Error' });
+      dispatch(deleteUserFailure(error.message));
     }
-  }
+  };
 
   return (
     <div className="max-w-lg mx-auto p-6 w-full">
@@ -240,11 +239,11 @@ export const DashboardProfile = () => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-        <Button onClick={handleSignOut} variant="destructive" className="cursor-pointer">
+        <Button variant="destructive" className="cursor-pointer">
           Sign Out
         </Button>
       </div>
-      <p className='text-red-600'>{error}</p>
+      <p className="text-red-600">{error}</p>
     </div>
   );
 };
