@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoute.js';
 import userRoutes from './routes/userRoute.js';
-import postRoutes from './routes/postRoute.js'
+import postRoutes from './routes/postRoute.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
