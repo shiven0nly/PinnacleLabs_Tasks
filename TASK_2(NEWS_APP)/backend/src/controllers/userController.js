@@ -65,7 +65,6 @@ export const deleteUser = async (req, res, next) => {
   } catch (error) {
     next(errorHandler(500, 'Internal Server Error'));
   }
-<<<<<<< HEAD
 
 };
 
@@ -78,6 +77,3 @@ export const signout = async(req, res, next) => {
   }
 
 };
-=======
-};
->>>>>>> 146518bc07b29ecb67c5e7d4d16d356e42716ddc
