@@ -10,9 +10,10 @@ export async function uploadFile(file) {
       file
     );
 
-    return uploadFile;
+    return uploadedFile;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 

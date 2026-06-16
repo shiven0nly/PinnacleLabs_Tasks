@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { User, House, LogOut, CircleFadingPlus } from 'lucide-react';
+import { User, House, LogOut, CircleFadingPlus, CircleCheck } from 'lucide-react';
 import { Button } from './button';
 import { useDispatch } from 'react-redux';
 import { signOutSuccess } from '@/redux/user/userSlice';

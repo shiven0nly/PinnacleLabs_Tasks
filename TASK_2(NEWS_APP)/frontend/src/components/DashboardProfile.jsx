@@ -24,7 +24,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import {useToast} from '@/hooks/use-toast';
 
 export const DashboardProfile = () => {
   const { currentUser, error } = useSelector((state) => state.user);
@@ -73,7 +75,7 @@ export const DashboardProfile = () => {
         ...formData,
         profilePicture: profilePicture,
       };
-      const res = await fetch(`/api/user/update/${currentUser._Id}`, {
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -105,14 +107,14 @@ export const DashboardProfile = () => {
 
       const data = await res.json();
       if (!res.ok) {
-        Toaster({ title: 'Internal Server Error' });
+        toast({ title: 'Internal Server Error' });
         dispatch(signOutFailure(data.message));
       } else {
-        Toaster({ title: 'Signout Successfully!!' });
+        toast({ title: 'Signout Successfully!!' });
         dispatch(signOutSuccess(data));
       }
     } catch (error) {
-      Toaster({ title: 'Internal Server Error' });
+      toast({ title: 'Internal Server Error' });
       dispatch(signOutFailure(error.message));
     }
   };
@@ -127,9 +129,10 @@ export const DashboardProfile = () => {
       const data = await res.json();
 
       if (!res.ok) {
+        toast({ title: 'Failed to delete account' });
         dispatch(deleteUserFailure(data.message));
       } else {
-        Toaster({ title: 'Deleted User Successfully!' });
+        toast({ title: 'Deleted User Successfully!' });
         dispatch(deleteUserSuccess());
       }
     } catch (error) {
@@ -171,7 +174,7 @@ export const DashboardProfile = () => {
             type="text"
             id="username"
             placeholder="Username"
-            defaultValue={currentUser.username}
+            defaultValue={currentUser?.username || ''}
             className="h-12 border rounded-md border border-primary/20 hover:rounded-xl"
             onChange={handleChange}
           />
@@ -186,7 +189,7 @@ export const DashboardProfile = () => {
             type="email"
             id="email"
             placeholder="Email"
-            defaultValue={currentUser.email}
+            defaultValue={currentUser?.email || ''}
             className="h-12 border rounded-lg border-primary/20 rounded-md hover:rounded-xl"
             onChange={handleChange}
           />
@@ -242,11 +245,11 @@ export const DashboardProfile = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <Button variant="destructive" className="cursor-pointer">
+        <Button variant="destructive" className="cursor-pointer" onClick={handleSignOut}>
           Sign Out
         </Button>
       </div>
-      <p className="text-red-600">{error}</p>
+      {error && <p className="text-destructive mt-4">{error}</p>}
     </div>
   );
 };

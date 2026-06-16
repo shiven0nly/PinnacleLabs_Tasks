@@ -147,7 +147,7 @@ export const SignUp = (props) => {
                     placeholder="username"
                     required
                     autoComplete="username"
-                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
+                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-muted-foreground focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
                   />
                 </div>
               </div>
@@ -167,7 +167,7 @@ export const SignUp = (props) => {
                     placeholder="joedohn@gmail.com"
                     required
                     autoComplete="email"
-                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
+                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-muted-foreground focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
                   />
                 </div>
               </div>
@@ -189,7 +189,7 @@ export const SignUp = (props) => {
                     placeholder="......"
                     required
                     autoComplete="current-password"
-                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
+                    className="block w-full rounded-md bg-transparent px-3 py-1.5 text-foreground outline-1 -outline-offset-1 outline-accent-foreground placeholder:text-muted-foreground focus:outline-2 focus:-outline-offset-2 focus:outline-ring sm:text-sm/6 hover:rounded-full"
                   />
                 </div>
               </div>
@@ -220,3 +220,4 @@ export const SignUp = (props) => {
     </>
   );
 };
+

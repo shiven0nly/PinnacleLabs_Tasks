@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../ui/table';
+} from './ui/table';
 import { Link } from 'react-router-dom';
 import {
   AlertDialog,
@@ -20,7 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../ui/alert-dialog';
+} from './ui/alert-dialog';
 
 const DashboardPosts = () => {
   const { currentUser } = useSelector((state) => state.user);

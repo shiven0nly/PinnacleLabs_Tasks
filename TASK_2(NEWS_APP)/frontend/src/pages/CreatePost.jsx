@@ -11,8 +11,7 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { getFilePreview, uploadFile } from '@/lib/appwrite/uploadImage';
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
+import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,9 +24,38 @@ const CreatePost = () => {
   const [imageUploading, setImageUploading] = useState(false);
 
   const [formData, setFormData] = useState({});
-  // console.log(formData)
+  console.log('Current formData:', formData);
 
   const [createPostError, setCreatePostError] = useState(null);
+  const [ReactQuill, setReactQuill] = useState(null);
+
+  useEffect(() => {
+    import('react-quill').then((module) => {
+      const ReactQuillComponent = module.default;
+
+      if (
+        ReactQuillComponent &&
+        ReactQuillComponent.prototype &&
+        typeof ReactQuillComponent.prototype.getEditingArea === 'function'
+      ) {
+        ReactQuillComponent.prototype.getEditingArea = function () {
+          if (!this.editingArea) {
+            throw new Error('Instantiating on missing editing area');
+          }
+          const element = this.editingArea;
+          if (!element) {
+            throw new Error('Cannot find element for editing area');
+          }
+          if (element.nodeType === 3) {
+            throw new Error('Editing area cannot be a text node');
+          }
+          return element;
+        };
+      }
+
+      setReactQuill(() => ReactQuillComponent);
+    });
+  }, []);
 
   const handleUploadImage = async () => {
     try {
@@ -38,22 +66,20 @@ const CreatePost = () => {
       }
 
       setImageUploading(true);
-
       setImageUploadError(null);
 
       const uploadedFile = await uploadFile(file);
       const postImageUrl = getFilePreview(uploadedFile.$id);
 
-      setFormData({ ...formData, image: postImageUrl });
+      console.log('Uploaded image URL:', postImageUrl);
 
+      setFormData((prevData) => ({ ...prevData, image: postImageUrl }));
+      
       toast({ title: 'Image Uploaded Successfully!' });
-
-      if (postImageUrl) {
-        setImageUploading(false);
-      }
+      setImageUploading(false);
     } catch (error) {
       setImageUploadError('Image upload failed');
-      console.log(error);
+      console.log('Image upload error:', error);
 
       toast({ title: 'Image upload failed!' });
       setImageUploading(false);
@@ -67,13 +93,14 @@ const CreatePost = () => {
       const res = await fetch('/api/post/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Important: include cookies for authentication
         body: JSON.stringify(formData),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        toast({ title: 'Something went wrong! Please try again.' });
+        toast({ title: data.message || 'Something went wrong! Please try again.' });
         setCreatePostError(data.message);
 
         return;
@@ -86,6 +113,7 @@ const CreatePost = () => {
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
+      console.error('Submit error:', error);
       toast({ title: 'Something went wrong! Please try again.' });
       setCreatePostError('Something went wrong! Please try again.');
     }
@@ -142,7 +170,7 @@ const CreatePost = () => {
           </Button>
         </div>
 
-        {imageUploadError && <p className="text-red-600">{imageUploadError}</p>}
+        {imageUploadError && <p className="text-destructive">{imageUploadError}</p>}
 
         {formData.image && (
           <img
@@ -152,26 +180,32 @@ const CreatePost = () => {
           />
         )}
 
-        <ReactQuill
-          theme="snow"
-          placeholder="Write something here..."
-          className="h-72  mb-12"
-          required
-          onChange={(value) => {
-            setFormData({ ...formData, content: value });
-          }}
-        />
+        {ReactQuill ? (
+          <ReactQuill
+            theme="snow"
+            placeholder="Write something here..."
+            className="h-72 mb-12"
+            required
+            onChange={(value) => {
+              setFormData({ ...formData, content: value });
+            }}
+          />
+        ) : (
+          <div className="h-72 mb-12 rounded-lg border border-dashed border-primary/40 flex items-center justify-center text-muted-foreground">
+            Loading editor...
+          </div>
+        )}
 
         <Button
           type="submit"
           variant="outline"
-          className="h-12 bg-green-600 font-semibold max-sm:mt-5 text-md"
+          className="h-12 bg-secondary text-secondary-foreground font-semibold max-sm:mt-5 text-md hover:bg-secondary/80"
         >
           Publish Your Article
         </Button>
 
         {createPostError && (
-          <p className="text-red-600 mt-5">{createPostError}</p>
+          <p className="text-destructive mt-5">{createPostError}</p>
         )}
       </form>
     </div>
