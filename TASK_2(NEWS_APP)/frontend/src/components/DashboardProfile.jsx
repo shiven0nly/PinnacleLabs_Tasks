@@ -10,7 +10,7 @@ import {
   updateSuccess,
   signOutSuccess,
   signOutFailure,
-  signOutStart
+  signOutStart,
 } from '@/redux/user/userSlice';
 import { getFilePreview, uploadFile } from '@/lib/appwrite/uploadImage';
 import {
@@ -23,7 +23,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from '@/components/ui/alert-dialog';
 import { Toaster } from 'react-hot-toast';
 
 export const DashboardProfile = () => {
@@ -96,27 +96,26 @@ export const DashboardProfile = () => {
     }
   };
 
-  const handleSignOut = async() => {
+  const handleSignOut = async () => {
     try {
-        dispatch(signOutStart())
-        const res = await fetch("/api/user/signout", {
-          method: "POST"
-        })
+      dispatch(signOutStart());
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
 
-        const data = await res.json()
-        if(!res.ok){
-          Toaster({title: "Internal Server Error"})
-          dispatch(signOutFailure(data.message))
-        }
-        else {
-          Toaster({title: "Signout Successfully!!"})
-          dispatch(signOutSuccess(data))
-        }
+      const data = await res.json();
+      if (!res.ok) {
+        Toaster({ title: 'Internal Server Error' });
+        dispatch(signOutFailure(data.message));
+      } else {
+        Toaster({ title: 'Signout Successfully!!' });
+        dispatch(signOutSuccess(data));
+      }
     } catch (error) {
-      Toaster({title: "Internal Server Error"})
-      dispatch(signOutFailure(error.message))
+      Toaster({ title: 'Internal Server Error' });
+      dispatch(signOutFailure(error.message));
     }
-  }
+  };
 
   const handleDeleterUser = async () => {
     try {
@@ -219,25 +218,30 @@ export const DashboardProfile = () => {
       {/* Action Buttons */}
       <div className="flex justify-between mt-8">
         <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="cursor-pointer">
-          Delete Account
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel variant='outline'>Cancel</AlertDialogCancel>
-          <AlertDialogAction variant='destructive' onClick={handleDeleterUser}>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive" className="cursor-pointer">
+              Delete Account
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel variant="outline">Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                variant="destructive"
+                onClick={handleDeleterUser}
+              >
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
         <Button variant="destructive" className="cursor-pointer">
           Sign Out
         </Button>

@@ -52,10 +52,7 @@ const MobileNavbar = () => {
           <span className="text-xs">Profile</span>
         </Link>
 
-        <Button
-          onClick={handleSignout}
-          variant='destructive'
-        >
+        <Button onClick={handleSignout} variant="destructive">
           <LogOut size={20} />
           <span className="text-xs">Sign Out</span>
         </Button>

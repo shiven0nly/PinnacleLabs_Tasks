@@ -92,7 +92,7 @@ const Sidebar = (props) => {
             onClick={handleSignout}
           >
             <LogOut className="w-5 h-5" />
-            <Button variant='destructive'>Log Out</Button>
+            <Button variant="destructive">Log Out</Button>
           </Button>
         </div>
       </aside>

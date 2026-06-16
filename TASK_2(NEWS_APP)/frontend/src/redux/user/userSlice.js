@@ -43,12 +43,12 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    
+
     signOutStart: (state) => {
       state.loading = true;
       state.error = null;
     },
-  
+
     signOutSuccess: (state) => {
       state.currentUser = null;
       state.loading = false;
@@ -63,7 +63,7 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-  
+
     deleteUserSuccess: (state) => {
       state.currentUser = null;
       state.loading = false;

@@ -2,7 +2,6 @@ import User from '../models/userModel.js';
 import { errorHandler } from '../utils/error.js';
 import bcryptjs from 'bcryptjs';
 
-
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(401, 'You can only update your own account!'));
@@ -65,15 +64,15 @@ export const deleteUser = async (req, res, next) => {
   } catch (error) {
     next(errorHandler(500, 'Internal Server Error'));
   }
-
 };
 
-export const signout = async(req, res, next) => {
-
+export const signout = async (req, res, next) => {
   try {
-    res.clearCookie("access_token").status(200).json("User has been signout successfully!!")
+    res
+      .clearCookie('access_token')
+      .status(200)
+      .json('User has been signout successfully!!');
   } catch (error) {
-    next(error)
+    next(error);
   }
-
 };
