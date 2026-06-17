@@ -161,6 +161,7 @@ export const Navbar = React.forwardRef(
       try {
         const res = await fetch('/api/user/signout', {
           method: 'POST',
+          credentials: 'include',
         });
 
         const data = await res.json();

@@ -82,3 +82,86 @@ export const getPosts = async (req, res, next) => {
     next(error)
   }
 }
+
+export const deletePost = async (req, res, next) => {
+  // Allow user to delete their own post or admin to delete any post
+  if (!req.user || !req.user.id) {
+    return next(errorHandler(401, 'Unauthorized - Please sign in'));
+  }
+
+  try {
+    const post = await Post.findById(req.params.postId);
+    
+    if (!post) {
+      return next(errorHandler(404, 'Post not found'));
+    }
+
+    // Check if user is the owner or admin
+    if (post.userId !== req.params.userId && !req.user.isAdmin) {
+      return next(errorHandler(403, 'You are not allowed to delete this post'));
+    }
+
+    // Verify the userId in params matches the authenticated user (unless admin)
+    if (req.params.userId !== req.user.id && !req.user.isAdmin) {
+      return next(errorHandler(403, 'You are not allowed to delete this post'));
+    }
+
+    await Post.findByIdAndDelete(req.params.postId);
+    
+    res.status(200).json({ message: 'Post has been deleted successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatePost = async (req, res, next) => {
+  // Allow user to update their own post or admin to update any post
+  if (!req.user || !req.user.id) {
+    return next(errorHandler(401, 'Unauthorized - Please sign in'));
+  }
+
+  try {
+    const post = await Post.findById(req.params.postId);
+    
+    if (!post) {
+      return next(errorHandler(404, 'Post not found'));
+    }
+
+    // Check if user is the owner or admin
+    if (post.userId !== req.params.userId && !req.user.isAdmin) {
+      return next(errorHandler(403, 'You are not allowed to update this post'));
+    }
+
+    // Verify the userId in params matches the authenticated user (unless admin)
+    if (req.params.userId !== req.user.id && !req.user.isAdmin) {
+      return next(errorHandler(403, 'You are not allowed to update this post'));
+    }
+
+    // If title is being updated, regenerate slug
+    if (req.body.title && req.body.title !== post.title) {
+      req.body.slug = req.body.title
+        .split(' ')
+        .join('-')
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9-]/g, '');
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.postId,
+      {
+        $set: {
+          title: req.body.title,
+          content: req.body.content,
+          category: req.body.category,
+          image: req.body.image,
+          slug: req.body.slug,
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    next(error);
+  }
+};

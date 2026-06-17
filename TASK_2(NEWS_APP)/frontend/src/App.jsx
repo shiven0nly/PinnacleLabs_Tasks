@@ -15,6 +15,10 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import PrivateRoute from './components/PrivateRoute';
 import CreatePost from './pages/CreatePost';
 import DashboardPosts from './components/DashboardPost';
+import PostDetails from './pages/PostDetails';
+import Search from './components/Search';
+import UpdatePost from './pages/UpdatePost';
+
 const App = () => {
   return (
     <>
@@ -27,10 +31,13 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/news-articles" element={<NewsArticles />} />
           <Route path="/about" element={<About />} />
+          <Route path="/post/:postSlug" element={<PostDetails />} />
+          <Route path="/search" element={<Search />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/your-articles" element={<DashboardPosts />} />
+            <Route path="/update-post/:postId" element={<UpdatePost />} />
           </Route>
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         </Routes>

@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import {useToast} from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 export const DashboardProfile = () => {
   const { currentUser, error } = useSelector((state) => state.user);
@@ -34,7 +34,6 @@ export const DashboardProfile = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const ProfilePicRef = useRef(null);
   const dispatch = useDispatch();
-  const { toast } = useToast();
   const [formData, setFormData] = useState({});
 
   console.log('DashboardProfile - currentUser:', currentUser);
@@ -48,7 +47,7 @@ export const DashboardProfile = () => {
       const profilePictureUrl = getFilePreview(uploadedFile.$id);
       return profilePictureUrl;
     } catch (error) {
-      toast({ title: 'Update user failed!! Please try again!' });
+      toast.error('Image upload failed! Please try again!');
       console.log('Image upload failed: ', error);
     }
   };
@@ -80,20 +79,21 @@ export const DashboardProfile = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(updateProfile),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        toast({ title: 'Update user failed!! Please try again!' });
+        toast.error('Update user failed! Please try again!');
         dispatch(updateFailure(data.message));
       } else {
-        toast({ title: 'User updated successfully!!' });
+        toast.success('Profile updated successfully! 🎉');
         dispatch(updateSuccess(data));
       }
     } catch (error) {
-      toast({ title: 'Update user failed!! Please try again!' });
+      toast.error('Update user failed! Please try again!');
       dispatch(updateFailure(error.message));
     }
   };
@@ -103,18 +103,19 @@ export const DashboardProfile = () => {
       dispatch(signOutStart());
       const res = await fetch('/api/user/signout', {
         method: 'POST',
+        credentials: 'include',
       });
 
       const data = await res.json();
       if (!res.ok) {
-        toast({ title: 'Internal Server Error' });
+        toast.error('Internal Server Error');
         dispatch(signOutFailure(data.message));
       } else {
-        toast({ title: 'Signout Successfully!!' });
+        toast.success('Signed out successfully!');
         dispatch(signOutSuccess(data));
       }
     } catch (error) {
-      toast({ title: 'Internal Server Error' });
+      toast.error('Internal Server Error');
       dispatch(signOutFailure(error.message));
     }
   };
@@ -124,19 +125,20 @@ export const DashboardProfile = () => {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        toast({ title: 'Failed to delete account' });
+        toast.error('Failed to delete account');
         dispatch(deleteUserFailure(data.message));
       } else {
-        toast({ title: 'Deleted User Successfully!' });
+        toast.success('Account deleted successfully!');
         dispatch(deleteUserSuccess());
       }
     } catch (error) {
-      toast({ title: 'Internal Server Error' });
+      toast.error('Internal Server Error');
       dispatch(deleteUserFailure(error.message));
     }
   };

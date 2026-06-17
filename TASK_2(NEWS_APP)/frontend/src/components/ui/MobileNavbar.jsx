@@ -13,8 +13,9 @@ const MobileNavbar = () => {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/sign-out', {
+      const res = await fetch('/api/user/signout', {
         method: 'POST',
+        credentials: 'include',
       });
 
       const data = await res.json();

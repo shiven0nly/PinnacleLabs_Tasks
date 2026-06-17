@@ -1,5 +1,5 @@
-import Advertise from "../Advertise"
-import CommentSection from "@/components/shared/CommentSection"
+import Advertise from "./Advertise"
+import CommentSection from "@/components/ui/CommentSection"
 import PostCard from "@/components/ui/PostCard"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
@@ -37,7 +37,7 @@ const PostDetails = () => {
         if (res.ok) {
           setPost(data.posts[0])
           setLoading(false)
-          setError(true)
+          setError(false)
         }
       } catch (error) {
         setError(true)

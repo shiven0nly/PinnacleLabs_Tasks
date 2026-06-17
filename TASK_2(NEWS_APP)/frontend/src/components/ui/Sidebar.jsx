@@ -15,6 +15,7 @@ const Sidebar = (props) => {
     try {
       const res = await fetch('/api/user/signout', {
         method: 'POST',
+        credentials: 'include',
       });
 
       const data = await res.json();

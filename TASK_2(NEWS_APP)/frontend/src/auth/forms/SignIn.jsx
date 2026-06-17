@@ -23,11 +23,12 @@ export const SignIn = (props) => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/sign-in', {
+      const response = await fetch('/api/auth/sign-in', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(data),
       });
 
