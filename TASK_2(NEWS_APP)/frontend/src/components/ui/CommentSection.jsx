@@ -1,88 +1,88 @@
-import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
-import { Textarea } from "../ui/textarea"
-import { Button } from "../ui/button"
-import { useToast } from "@/hooks/use-toast"
-import Comment from "./Comment"
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { Textarea } from '../ui/textarea';
+import { Button } from '../ui/button';
+import { useToast } from '@/hooks/use-toast';
+import Comment from './Comment';
 
 const CommentSection = ({ postId }) => {
-  const { toast } = useToast()
-  const navigate = useNavigate()
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const { currentUser } = useSelector((state) => state.user)
-  const [comment, setComment] = useState("")
-  const [allComments, setAllComments] = useState([])
+  const { currentUser } = useSelector((state) => state.user);
+  const [comment, setComment] = useState('');
+  const [allComments, setAllComments] = useState([]);
 
   // console.log(allComments)
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (comment.length > 200) {
       toast({
-        title: "Comment length must be lower than or equal to 200 characters",
-      })
+        title: 'Comment length must be lower than or equal to 200 characters',
+      });
 
-      return
+      return;
     }
 
     try {
-      const res = await fetch("/api/comment/create", {
-        method: "POST",
+      const res = await fetch('/api/comment/create', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           content: comment,
           postId,
           userId: currentUser._id,
         }),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (res.ok) {
-        toast({ title: "Comment successfully!" })
-        setComment("")
-        setAllComments([data, ...allComments])
+        toast({ title: 'Comment successfully!' });
+        setComment('');
+        setAllComments([data, ...allComments]);
       }
     } catch (error) {
-      console.log(error)
-      toast({ title: "Something went wrong! Please try again." })
+      console.log(error);
+      toast({ title: 'Something went wrong! Please try again.' });
     }
-  }
+  };
 
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`/api/comment/getPostComments/${postId}`)
+        const res = await fetch(`/api/comment/getPostComments/${postId}`);
 
         if (res.ok) {
-          const data = await res.json()
-          setAllComments(data)
+          const data = await res.json();
+          setAllComments(data);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
+    };
 
-    getComments()
-  }, [postId])
+    getComments();
+  }, [postId]);
 
   const handleLike = async (commentId) => {
     try {
       if (!currentUser) {
-        navigate("/sign-in")
-        return
+        navigate('/sign-in');
+        return;
       }
 
       const res = await fetch(`/api/comment/likeComment/${commentId}`, {
-        method: "PUT",
-      })
+        method: 'PUT',
+      });
 
       if (res.ok) {
-        const data = await res.json()
+        const data = await res.json();
 
         setAllComments(
           allComments.map((comment) =>
@@ -94,46 +94,46 @@ const CommentSection = ({ postId }) => {
                 }
               : comment
           )
-        )
+        );
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   const handleEdit = async (comment, editedContent) => {
     setAllComments(
       allComments.map((c) =>
         c._id === comment._id ? { ...c, content: editedContent } : c
       )
-    )
-  }
+    );
+  };
 
   const handleDelete = async (commentId) => {
     try {
       // console.log(commentId)
 
       if (!currentUser) {
-        navigate("/sign-in")
+        navigate('/sign-in');
 
-        return
+        return;
       }
 
       const res = await fetch(`/api/comment/deleteComment/${commentId}`, {
-        method: "DELETE",
-      })
+        method: 'DELETE',
+      });
 
       if (res.ok) {
-        const data = await res.json()
+        const data = await res.json();
 
         setAllComments(
           allComments.filter((comment) => comment._id !== commentId)
-        )
+        );
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   return (
     <div className="max-w-3xl mx-auto w-full p-3">
@@ -148,7 +148,7 @@ const CommentSection = ({ postId }) => {
           />
 
           <Link
-            to={"/dashboard?tab=profile"}
+            to={'/dashboard?tab=profile'}
             className="text-sm text-blue-800 hover:underline"
           >
             @{currentUser.username}
@@ -157,7 +157,7 @@ const CommentSection = ({ postId }) => {
       ) : (
         <div className="text-sm text-gray-700 my-5 flex gap-1">
           You must be signed in to comment.
-          <Link to={"/sign-in"} className="text-blue-600 hover:underline">
+          <Link to={'/sign-in'} className="text-blue-600 hover:underline">
             Sign In
           </Link>
         </div>
@@ -211,7 +211,7 @@ const CommentSection = ({ postId }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CommentSection
+export default CommentSection;

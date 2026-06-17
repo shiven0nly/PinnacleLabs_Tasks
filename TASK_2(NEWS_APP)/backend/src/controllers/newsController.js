@@ -6,7 +6,7 @@ export const getNews = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     const API_KEY = process.env.MEDIASTACK_API_KEY;
-    
+
     if (!API_KEY) {
       return next(errorHandler(500, 'News API key not configured'));
     }
@@ -17,7 +17,9 @@ export const getNews = async (req, res, next) => {
     const data = await response.json();
 
     if (data.error) {
-      return next(errorHandler(500, data.error.message || 'Failed to fetch news'));
+      return next(
+        errorHandler(500, data.error.message || 'Failed to fetch news')
+      );
     }
 
     res.status(200).json({

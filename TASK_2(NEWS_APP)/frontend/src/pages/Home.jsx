@@ -1,44 +1,50 @@
-import Advertise from "./Advertise"
-import PostCard from "@/components/ui/PostCard"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Newspaper, Users, Sparkles, TrendingUp } from "lucide-react"
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import Advertise from './Advertise';
+import PostCard from '@/components/ui/PostCard';
+import { Button } from '@/components/ui/button';
+import {
+  ArrowRight,
+  Newspaper,
+  Users,
+  Sparkles,
+  TrendingUp,
+} from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const [posts, setPosts] = useState([])
-  const [trendingNews, setTrendingNews] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [trendingNews, setTrendingNews] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch("/api/post/getPosts?limit=6")
+      const res = await fetch('/api/post/getPosts?limit=6');
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (res.ok) {
-        setPosts(data.posts)
+        setPosts(data.posts);
       }
-    }
+    };
 
-    fetchPosts()
-  }, [])
+    fetchPosts();
+  }, []);
 
   useEffect(() => {
     const fetchTrendingNews = async () => {
       try {
-        const res = await fetch("/api/news/latest?category=general&limit=3")
-        const data = await res.json()
+        const res = await fetch('/api/news/latest?category=general&limit=3');
+        const data = await res.json();
 
         if (res.ok && data.data) {
-          setTrendingNews(data.data)
+          setTrendingNews(data.data);
         }
       } catch (error) {
-        console.error("Error fetching trending news:", error)
+        console.error('Error fetching trending news:', error);
       }
-    }
+    };
 
-    fetchTrendingNews()
-  }, [])
+    fetchTrendingNews();
+  }, []);
 
   return (
     <div>
@@ -52,9 +58,11 @@ const Home = () => {
           breaking news every morning.
         </p>
 
-        <p className="text-muted-foreground mt-1 italic">Stay informed, stay ahead.</p>
+        <p className="text-muted-foreground mt-1 italic">
+          Stay informed, stay ahead.
+        </p>
 
-        <Link to={"/news-articles"}>
+        <Link to={'/news-articles'}>
           <Button className="bg-accent hover:bg-accent/80 text-accent-foreground py-3 px-6 rounded-full font-semibold shadow-lg flex items-center gap-2 w-fit">
             View all posts <ArrowRight className="h-5 w-5" />
           </Button>
@@ -88,7 +96,8 @@ const Home = () => {
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         onError={(e) => {
-                          e.target.src = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80"
+                          e.target.src =
+                            'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80';
                         }}
                       />
                     ) : (
@@ -165,7 +174,7 @@ const Home = () => {
             </div>
 
             <Link
-              to={"/search"}
+              to={'/search'}
               className="text-lg hover:underline text-center font-semibold"
             >
               View all news
@@ -174,8 +183,8 @@ const Home = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const FeatureCard = ({ title, description, icon }) => {
   return (
@@ -188,7 +197,7 @@ const FeatureCard = ({ title, description, icon }) => {
         <p className="text-muted-foreground leading-relaxed">{description}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

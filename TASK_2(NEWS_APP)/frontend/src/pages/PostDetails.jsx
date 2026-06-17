@@ -1,70 +1,70 @@
-import Advertise from "./Advertise"
-import CommentSection from "@/components/ui/CommentSection"
-import PostCard from "@/components/ui/PostCard"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import React, { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import Advertise from './Advertise';
+import CommentSection from '@/components/ui/CommentSection';
+import PostCard from '@/components/ui/PostCard';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 const PostDetails = () => {
-  const { postSlug } = useParams()
+  const { postSlug } = useParams();
 
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const [post, setPost] = useState(null)
-  const [recentArticles, setRecentArticles] = useState(null)
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [post, setPost] = useState(null);
+  const [recentArticles, setRecentArticles] = useState(null);
 
-  console.log(recentArticles)
+  console.log(recentArticles);
 
   // console.log(post)
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        setLoading(true)
+        setLoading(true);
 
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`)
+        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
 
-        const data = await res.json()
+        const data = await res.json();
 
         if (!res.ok) {
-          setError(true)
-          setLoading(false)
+          setError(true);
+          setLoading(false);
 
-          return
+          return;
         }
 
         if (res.ok) {
-          setPost(data.posts[0])
-          setLoading(false)
-          setError(false)
+          setPost(data.posts[0]);
+          setLoading(false);
+          setError(false);
         }
       } catch (error) {
-        setError(true)
-        setLoading(false)
+        setError(true);
+        setLoading(false);
       }
-    }
+    };
 
-    fetchPost()
-  }, [postSlug])
+    fetchPost();
+  }, [postSlug]);
 
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`)
+        const res = await fetch(`/api/post/getposts?limit=3`);
 
-        const data = await res.json()
+        const data = await res.json();
 
         if (res.ok) {
-          setRecentArticles(data.posts)
+          setRecentArticles(data.posts);
         }
-      }
+      };
 
-      fetchRecentPosts()
+      fetchRecentPosts();
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }, [])
+  }, []);
 
   if (loading) {
     return (
@@ -75,7 +75,7 @@ const PostDetails = () => {
           className="w-20 animate-spin"
         />
       </div>
-    )
+    );
   }
 
   return (
@@ -133,7 +133,7 @@ const PostDetails = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default PostDetails
+export default PostDetails;

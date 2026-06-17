@@ -1,5 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PostCard = ({ post }) => {
   return (
@@ -37,7 +37,7 @@ const PostCard = ({ post }) => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostCard
+export default PostCard;

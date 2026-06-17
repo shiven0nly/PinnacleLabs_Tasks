@@ -5,6 +5,7 @@ A modern, full-stack news aggregator and blog platform built with React, Express
 ## 🚀 Features
 
 ### User Features
+
 - ✅ User authentication (Sign up, Sign in, Sign out)
 - ✅ Profile management with Appwrite image uploads
 - ✅ Create, read, update, and delete blog posts
@@ -14,12 +15,14 @@ A modern, full-stack news aggregator and blog platform built with React, Express
 - ✅ Responsive UI with modern design
 
 ### Admin Features
+
 - ✅ Manage all posts from dashboard
 - ✅ View post analytics and statistics
 
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 19** - UI framework
 - **Vite** - Build tool
 - **Redux Toolkit** - State management
@@ -30,6 +33,7 @@ A modern, full-stack news aggregator and blog platform built with React, Express
 - **Appwrite** - Cloud storage for images
 
 ### Backend
+
 - **Express.js** - Server framework
 - **MongoDB** - Database
 - **Mongoose** - ODM
@@ -40,12 +44,14 @@ A modern, full-stack news aggregator and blog platform built with React, Express
 ## 📦 Installation
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - MongoDB Atlas account (or local MongoDB)
 - Appwrite account ([cloud.appwrite.io](https://cloud.appwrite.io))
 - Mediastack API key ([mediastack.com](https://mediastack.com))
 
 ### 1. Clone the repository
+
 ```bash
 cd TASK_2(NEWS_APP)
 ```
@@ -58,6 +64,7 @@ npm install
 ```
 
 Create a `.env` file in the `backend` directory:
+
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
@@ -74,6 +81,7 @@ npm install
 ```
 
 Create a `.env` file in the `frontend` directory:
+
 ```env
 VITE_APPWRITE_PROJECT_ID=your_project_id
 VITE_APPWRITE_STORAGE_ID=your_storage_bucket_id
@@ -86,6 +94,7 @@ VITE_MEDIASTACK_API_KEY=your_mediastack_api_key
 ### 4. Appwrite Setup
 
 Follow the guide in `APPWRITE_SETUP_GUIDE.md` to:
+
 1. Create a project on Appwrite
 2. Create a storage bucket
 3. Set permissions to allow public read access
@@ -95,17 +104,21 @@ Follow the guide in `APPWRITE_SETUP_GUIDE.md` to:
 ### Development Mode
 
 **Terminal 1 - Backend:**
+
 ```bash
 cd backend
 npm run dev
 ```
+
 Server runs on: http://localhost:5000
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd frontend
 npm run dev
 ```
+
 Client runs on: http://localhost:5173
 
 ### Using Docker Compose (Optional)
@@ -115,6 +128,7 @@ docker-compose up
 ```
 
 This will start:
+
 - MongoDB database
 - Mongo Express (DB GUI)
 - Backend API
@@ -150,38 +164,45 @@ TASK_2(NEWS_APP)/
 ## 🔑 API Endpoints
 
 ### Authentication
+
 - `POST /api/auth/sign-up` - Register new user
 - `POST /api/auth/sign-in` - Login user
 
 ### Users
+
 - `PUT /api/user/update/:userId` - Update profile
 - `DELETE /api/user/delete/:userId` - Delete account
 - `POST /api/user/signout` - Logout
 
 ### Posts
+
 - `POST /api/post/create` - Create post (authenticated)
 - `GET /api/post/getposts` - Get posts with filters
 - `PUT /api/post/updatepost/:postId/:userId` - Update post
 - `DELETE /api/post/deletepost/:postId/:userId` - Delete post
 
 ### News
+
 - `GET /api/news/latest` - Fetch external news
 
 ## 🎨 Key Features Explained
 
 ### Authentication Flow
+
 1. User signs up with email/password
 2. Password is hashed with bcrypt
 3. JWT token stored in httpOnly cookie
 4. Redux stores user data with persistence
 
 ### Post Management
+
 1. Create posts with rich text editor
 2. Upload images to Appwrite storage
 3. Edit or delete your own posts
 4. Search posts by title, content, category
 
 ### External News Integration
+
 - Backend proxies requests to Mediastack API
 - Filters news by category
 - Displays latest news articles
@@ -189,10 +210,13 @@ TASK_2(NEWS_APP)/
 ## 🔧 Configuration
 
 ### Adding an Admin User
+
 Manually set `isAdmin: true` in MongoDB for a user document to grant admin privileges.
 
 ### Changing Post Categories
+
 Edit the categories in:
+
 - `frontend/src/pages/CreatePost.jsx`
 - `frontend/src/pages/UpdatePost.jsx`
 - `frontend/src/components/Search.jsx`
@@ -200,25 +224,30 @@ Edit the categories in:
 ## 🐛 Troubleshooting
 
 ### Images not loading
+
 - Check Appwrite bucket permissions (see `APPWRITE_SETUP_GUIDE.md`)
 - Ensure permissions include `Permission.read(Role.any())`
 
 ### CORS errors
+
 - Verify `CLIENT_URL` in backend `.env` matches frontend URL
 - Check CORS configuration in `backend/src/server.js`
 
 ### Database connection failed
+
 - Verify MongoDB URI is correct
 - Check MongoDB Atlas network access allows your IP
 - Ensure database user has proper permissions
 
 ### News API not working
+
 - Verify `MEDIASTACK_API_KEY` is set in both `.env` files
 - Check API key validity and quota on Mediastack dashboard
 
 ## 📝 Environment Variables Summary
 
 ### Backend Required
+
 - `PORT` - Server port (default: 5000)
 - `MONGO_URI` - MongoDB connection string
 - `JWT_SECRET` - Secret for JWT signing
@@ -226,6 +255,7 @@ Edit the categories in:
 - `MEDIASTACK_API_KEY` - News API key
 
 ### Frontend Required
+
 - `VITE_APPWRITE_PROJECT_ID` - Appwrite project ID
 - `VITE_APPWRITE_STORAGE_ID` - Storage bucket ID
 - `VITE_APPWRITE_ENDPOINT` - Appwrite endpoint URL

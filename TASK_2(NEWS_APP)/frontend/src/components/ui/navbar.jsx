@@ -350,7 +350,10 @@ export const Navbar = React.forwardRef(
                       onClick={handleSignout}
                       className="cursor-pointer"
                     >
-                      <LogOut className="w-4 h-4 mr-2" onClick={handleSignout} />
+                      <LogOut
+                        className="w-4 h-4 mr-2"
+                        onClick={handleSignout}
+                      />
                       <span>Sign Out</span>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>

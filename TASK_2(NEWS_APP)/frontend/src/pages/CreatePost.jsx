@@ -74,7 +74,7 @@ const CreatePost = () => {
       console.log('Uploaded image URL:', postImageUrl);
 
       setFormData((prevData) => ({ ...prevData, image: postImageUrl }));
-      
+
       toast({ title: 'Image Uploaded Successfully!' });
       setImageUploading(false);
     } catch (error) {
@@ -100,7 +100,9 @@ const CreatePost = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        toast({ title: data.message || 'Something went wrong! Please try again.' });
+        toast({
+          title: data.message || 'Something went wrong! Please try again.',
+        });
         setCreatePostError(data.message);
 
         return;
@@ -170,7 +172,9 @@ const CreatePost = () => {
           </Button>
         </div>
 
-        {imageUploadError && <p className="text-destructive">{imageUploadError}</p>}
+        {imageUploadError && (
+          <p className="text-destructive">{imageUploadError}</p>
+        )}
 
         {formData.image && (
           <img

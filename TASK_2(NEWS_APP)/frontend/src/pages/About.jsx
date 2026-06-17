@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 
 const About = () => {
   return (
@@ -81,7 +81,7 @@ const About = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;

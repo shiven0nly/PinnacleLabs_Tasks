@@ -105,7 +105,7 @@ const UpdatePost = () => {
       console.log('Uploaded image URL:', postImageUrl);
 
       setFormData((prevData) => ({ ...prevData, image: postImageUrl }));
-      
+
       toast({ title: 'Image Uploaded Successfully!' });
       setImageUploading(false);
     } catch (error) {
@@ -121,17 +121,22 @@ const UpdatePost = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`/api/post/updatepost/${postId}/${currentUser._id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `/api/post/updatepost/${postId}/${currentUser._id}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
 
       if (!res.ok) {
-        toast({ title: data.message || 'Something went wrong! Please try again.' });
+        toast({
+          title: data.message || 'Something went wrong! Please try again.',
+        });
         setUpdatePostError(data.message);
         return;
       }
@@ -209,7 +214,9 @@ const UpdatePost = () => {
           </Button>
         </div>
 
-        {imageUploadError && <p className="text-destructive">{imageUploadError}</p>}
+        {imageUploadError && (
+          <p className="text-destructive">{imageUploadError}</p>
+        )}
 
         {formData.image && (
           <img

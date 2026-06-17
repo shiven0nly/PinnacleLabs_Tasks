@@ -247,7 +247,11 @@ export const DashboardProfile = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <Button variant="destructive" className="cursor-pointer" onClick={handleSignOut}>
+        <Button
+          variant="destructive"
+          className="cursor-pointer"
+          onClick={handleSignOut}
+        >
           Sign Out
         </Button>
       </div>

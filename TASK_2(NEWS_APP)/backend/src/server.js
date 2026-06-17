@@ -26,10 +26,12 @@ mongoose
 app.use(express.json());
 app.use(cookieParser());
 // for allowing cross origin requests with credentials
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 // Health check endpoint
 app.get('/health', (req, res) => {

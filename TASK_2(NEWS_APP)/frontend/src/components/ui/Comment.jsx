@@ -1,9 +1,9 @@
-import moment from "moment"
-import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
-import { AiFillLike } from "react-icons/ai"
-import { Textarea } from "./textarea"
-import { Button } from "./button"
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { AiFillLike } from 'react-icons/ai';
+import { Textarea } from './textarea';
+import { Button } from './button';
 
 import {
   AlertDialog,
@@ -15,60 +15,60 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../ui/alert-dialog"
+} from '../ui/alert-dialog';
 
 const Comment = ({ comment, onLike, onEdit, onDelete }) => {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   //   console.log(user)
 
-  const [isEditing, setIsEditing] = useState(false)
-  const [editedContent, setEditedContent] = useState(comment.content)
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(comment.content);
 
-  const { currentUser } = useSelector((state) => state.user)
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`/api/user/${comment.userId}`)
+        const res = await fetch(`/api/user/${comment.userId}`);
 
-        const data = await res.json()
+        const data = await res.json();
 
         if (res.ok) {
-          setUser(data)
+          setUser(data);
         }
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
       }
-    }
+    };
 
-    getUser()
-  }, [comment])
+    getUser();
+  }, [comment]);
 
   const handleEdit = () => {
-    setIsEditing(true)
-    setEditedContent(comment.content)
-  }
+    setIsEditing(true);
+    setEditedContent(comment.content);
+  };
 
   const handleSave = async () => {
     try {
       const res = await fetch(`/api/comment/editComment/${comment._id}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           content: editedContent,
         }),
-      })
+      });
 
       if (res.ok) {
-        setIsEditing(false)
-        onEdit(comment, editedContent)
+        setIsEditing(false);
+        onEdit(comment, editedContent);
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   return (
     <div className="flex p-4 border-b border-slate-300 text-sm gap-2">
@@ -83,7 +83,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
       <div className="flex-1">
         <div className="flex items-center mb-1">
           <span className="font-semibold mr-1 text-sm truncate">
-            {user ? `@${user.username}` : "Unknown"}
+            {user ? `@${user.username}` : 'Unknown'}
           </span>
 
           <span className="text-gray-500 text-sm">
@@ -129,7 +129,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
                 className={`text-gray-400 hover:text-blue-500 ${
                   currentUser &&
                   comment.likes.includes(currentUser._id) &&
-                  "!text-blue-600"
+                  '!text-blue-600'
                 }`}
               >
                 <AiFillLike className="text-lg" />
@@ -138,8 +138,8 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
               <p className="text-gray-400">
                 {comment.numberOfLikes > 0 &&
                   comment.numberOfLikes +
-                    " " +
-                    (comment.numberOfLikes === 1 ? "like" : "likes")}
+                    ' ' +
+                    (comment.numberOfLikes === 1 ? 'like' : 'likes')}
               </p>
 
               {currentUser &&
@@ -191,7 +191,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Comment
+export default Comment;
