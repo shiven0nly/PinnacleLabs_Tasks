@@ -1,6 +1,6 @@
 ## In this file I am providing the excalidraw diagrams to show how i think.
 
-### 1. 
+### 1.
 
 <img width="1087" height="547" alt="image" src="https://github.com/user-attachments/assets/a18e0803-f2fd-4168-8474-8b1e5974bb3b" />
 
