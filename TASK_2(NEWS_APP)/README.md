@@ -264,15 +264,3 @@ Edit the categories in:
 ## 📄 License
 
 This project is open source and available under the MIT License.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📞 Support
-
-For issues and questions, please create an issue in the repository.
-
----
-
-**Built with ❤️ using React, Express, MongoDB, and Appwrite**
